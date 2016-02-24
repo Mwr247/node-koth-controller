@@ -1,0 +1,22 @@
+{
+  "name": "node-koth-controller",
+  "version": "1.0.0",
+  "description": "A KOTH controller for code challenges, written in node.",
+  "main": "controller.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "start": "node controller.js"
+  },
+  "keywords": [
+    "code",
+    "golf",
+    "challenge",
+    "koth",
+    "programming",
+    "fun",
+    "controller"
+  ],
+  "author": "Mwr247",
+  "license": "ISC"
+}

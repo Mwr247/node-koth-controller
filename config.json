@@ -1,0 +1,8 @@
+{
+	"controller": {
+		"name": "KOTH Controller",
+		"logLevel": 5,
+    "botFile": "bots.txt",
+    "game": ""
+	}
+}
