@@ -17,6 +17,10 @@
     "fun",
     "controller"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mwr247/node-koth-controller.git"
+  },
   "author": "Mwr247",
   "license": "ISC"
 }
