@@ -1,0 +1,3 @@
+NodeBot;node NodeBot.js;red
+PythonBot;py PythonBot.py;blue
+RubyBot;ruby RubyBot.rb;red

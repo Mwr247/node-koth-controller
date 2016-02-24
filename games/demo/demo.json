@@ -1,0 +1,10 @@
+{
+	"name": "Demo",
+	"process": {
+		"encoding": "utf8",
+		"timeout": 5000
+	},
+  "rules": {
+    "rounds": 20
+  }
+}
