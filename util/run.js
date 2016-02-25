@@ -1,3 +1,5 @@
+/* globals cfg, util, game */
+
 const child = require('child_process');
 
 /*****
@@ -7,7 +9,7 @@ const self = {};
 
 // Synchronous bot calls, always processed and handled in order
 self.sync = function(botList, fetchData, callback) {
-	for (bot in botList) {
+	for (var bot in botList) {
 		callback({
 			id: botList[bot].id,
 			output: child.execSync(botList[bot].cmd + ' ' + fetchData(botList[bot].id), cfg.game.process)
@@ -19,14 +21,14 @@ self.sync = function(botList, fetchData, callback) {
 // Asynchronous bot calls, run at the same time
 self.async = function(botList, fetchData, callback) {
 	var remaining = botList.length;
-	for (bot in botList) {
+	for (var bot in botList) {
 		(function(botList, bot, fetchData, callback) {
-			return child.exec(botList[bot].cmd + ' ' + fetchData(botList[bot].id), cfg.game.process, function(error, stdout, stderr) {
+			return child.exec(botList[bot].cmd + ' ' + fetchData(botList[bot].id), cfg.game.process, function(error, stdout) {
 				callback({
 					id: botList[bot].id,
 					output: stdout
 				});
-				if (--remaining == 0) {
+				if (--remaining === 0) {
 					game.run();
 				}
 				if (error !== null) {

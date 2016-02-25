@@ -1,3 +1,5 @@
+/* globals cfg, util, game, bots */
+
 const fs = require('fs');
 
 try {
@@ -7,8 +9,8 @@ try {
 		run: require('./util/run.js')
 	};
 } catch(err) {
-	process.stderr.write(err);
-	process.exit(1);
+  process.stderr.write(err);
+  process.exit(1);
 }
 
 var argPos = 2;
@@ -36,9 +38,9 @@ if (cfg.controller.game != null && cfg.controller.game.length) {
 
 	if (game.init != null && game.run != null) {
 		util.out.print('"' + cfg.game.name + '" script loaded.', 4);
-		
+    var botFile = null;
 		try {
-			const botFile = fs.readFileSync(cfg.controller.dir + cfg.controller.botFile, 'utf8');
+			botFile = fs.readFileSync(cfg.controller.dir + cfg.controller.botFile, 'utf8');
 		} catch(err) {
 			util.out.error(err);
 			process.exit(1);
@@ -46,7 +48,7 @@ if (cfg.controller.game != null && cfg.controller.game.length) {
 
 		if (botFile != null && botFile.length != null) {
 			util.out.print('| Reading bot entries... ', 4, true);
-			
+
 			global.bots = botFile.trim().split('\n').map(function(bot, id) {
 				var tmp = bot.split(',').map(function(sub) {return sub.trim();});
 				return {
@@ -56,12 +58,12 @@ if (cfg.controller.game != null && cfg.controller.game.length) {
 					args: tmp.slice(2)
 				};
 			});
-			
+
 			if (bots != null && bots.length != null) {
 				util.out.print('Found ' + bots.length + ' entries.', 4);
         util.out.print('| Setup complete. Starting "' + cfg.game.name + '".\n' + tmpDecor, 4);
         util.out.prefix(cfg.game.name);
-				
+
 				game.init(process.argv.slice(process.argv.indexOf('*') + 1 || argPos));
 			} else {
 				util.out.error('Found no entries in the "' + cfg.controller.botFile + '" file.');
