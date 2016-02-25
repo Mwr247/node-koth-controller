@@ -33,8 +33,8 @@ module.exports = {
     sync: function(botList, fetchData, callback) {
       for (bot in botList) {
         callback({
-          id: bot,
-          output: child.execSync(botList[bot].cmd + ' ' + fetchData(bot), cfg.game.process)
+          id: botList[bot].id,
+          output: child.execSync(botList[bot].cmd + ' ' + fetchData(botList[bot].id), cfg.game.process)
         });
       }
       game.run();
@@ -48,8 +48,12 @@ module.exports = {
               id: botList[bot].id,
               output: stdout
             });
-            if (--remaining == 0) {game.run();}
-            if (error !== null) {util.error(error, 3);}
+            if (--remaining == 0) {
+							game.run();
+						}
+            if (error !== null) {
+							util.out.error(error);
+						}
           });
         })(botList, bot, fetchData, callback);
       }
