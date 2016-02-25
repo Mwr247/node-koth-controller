@@ -9,7 +9,7 @@ const local = {};
 local.data = function(id) {
 	return [
 		[local.rounds, cfg.game.rules.rounds].join(),
-		[bots[id].state.health, bots[id].state.ammo, bots[id].state.blocked, bots[id].state.kills].join(),
+		[bots[id].state.health, bots[id].state.ammo.length, bots[id].state.dodged, bots[id].state.kills].join(),
 		bots.filter(function(bot) {
 			return bot.id !== id && bot.state.health > 0;
 		}).map(function(bot) {
@@ -21,17 +21,20 @@ local.data = function(id) {
 // Handles bot responses
 local.response = function(result) {
 	var bot = bots[result.id], cmd = result.data;
-	util.out.print('[' + bot.id + ']' + bot.name + '(' + [bot.state.health, bot.state.ammo, bot.state.blocked, bot.state.kills] + '): ', 7, true);
+	util.out.print('[' + bot.id + ']' + bot.name + '(' + [bot.state.health, bot.state.ammo.length, bot.state.dodged, bot.state.kills] + '): ', 7, true);
 
-	if (cmd === 'B' && bot.state.blocked === 0) {
-		bot.state.blocked = 1;
+	if (cmd === 'D' && bot.state.dodged === 0) {
+		bot.state.dodged = 1;
 	} else {
-		bot.state.blocked = 0;
-		if (/^S\d+$/.test(cmd) && bots[+cmd.slice(1)].state.health > 0 && bot.state.ammo > 0) {
-			bot.state.ammo--;
+		bot.state.dodged = 0;
+		if (/^S\d+$/.test(cmd) && bots[+cmd.slice(1)].state.health > 0 && bot.state.ammo.length > 0) {
+			bot.state.ammo.pop();
 		} else {
-			if (cmd === 'L' && bot.state.ammo < 6) {
-				bot.state.ammo++;
+			if (cmd === 'L' && bot.state.ammo.length < 6) {
+				bot.state.ammo.push(1);
+				if (bot.state.cmd.slice(-1)[0] === 'L' && bot.state.ammo.length < 6) {
+					bot.state.ammo.push(1);
+				}
 			} else {
 				cmd = 'N';
 			}
@@ -55,8 +58,8 @@ self.init = function(data) {
 	for (var bot in bots) {
 		bots[bot].state = {
 			health: ((cfg.game.rules.bots || {}).health || 3) + (bots.length / 3 | 0),
-			ammo: 0,
-			blocked: 0,
+			ammo: [],
+			dodged: 0,
 			kills: 0,
 			cmd: ['N']
 		};
@@ -83,7 +86,7 @@ self.postRun = function() {
 		if (list[bot].state.cmd.slice(-1)[0][0] === 'S') {
 			tmp = +list[bot].state.cmd.slice(-1)[0].slice(1);
 			var target = list.filter(function(tBot) {
-				return tBot.id === tmp && tBot.state.blocked === 0;
+				return tBot.id === tmp && tBot.state.dodged === 0;
 			});
 			if (target.length > 0) {
 				tmp = target[0].state.cmd.slice(-1)[0];

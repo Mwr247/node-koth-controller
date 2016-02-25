@@ -4,8 +4,8 @@ var input = process.argv[2].split(';').map(function(val) {
 
 var options = []; // Possible options
 
-if (+input[1][2] === 0) { // If we can block
-  options.push('B'); // Add block option
+if (+input[1][2] === 0) { // If we can dodge
+  options.push('D'); // Add dodge option
 }
 
 if (+input[1][1] < 6) { // If we can load more ammo
