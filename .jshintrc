@@ -1,0 +1,13 @@
+{
+  "esversion": 6,
+  "boss": true,
+  "node": true,
+  "eqeqeq": true,
+  "eqnull": true,
+  "strict": false,
+  "newcap": false,
+  "undef": true,
+  "unused": true,
+  "lastsemic": true,
+  "loopfunc": true
+}
