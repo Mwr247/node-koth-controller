@@ -12,7 +12,7 @@ local.data = function(id) {
 
 // Handles bot responses
 local.response = function(result) {
-	util.out.print(result.output.trim(), 6);
+	util.out.print(result.data.trim(), 6);
 };
 
 /*****
@@ -22,7 +22,7 @@ const self = {};
 
 // Initial setup
 self.init = function(data) {
-  local.rounds = data[0] || cfg.game.rules.rounds;
+  local.rounds = cfg.game.rules.rounds = data[0] || cfg.game.rules.rounds;
 
   util.out.log('Starting run (' + local.rounds + ' rounds)...', 3);
 
@@ -32,12 +32,18 @@ self.init = function(data) {
 
 // Run a round
 self.run = function() {
-	if (local.rounds > 0) {
-    local.rounds--;
     util.run.async(bots, local.data, local.response);
-  } else {
-    util.out.log('Run complete: ' + (Date.now() - self.time) / 1000 + ' seconds.', 3);
-  }
+
+};
+
+// Handle post-round logic
+self.postRun = function() {
+	local.rounds--;
+	if (local.rounds > 0) {
+		self.run();
+	} else {
+		util.out.log('Run complete: ' + (Date.now() - self.time) / 1000 + ' seconds.', 3);
+	}
 };
 
 /*****
