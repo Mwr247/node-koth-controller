@@ -1,0 +1,9 @@
+{
+	"name": "Shooter",
+	"process": {
+		"timeout": 1000
+	},
+  "rules": {
+    "rounds": 50
+  }
+}
