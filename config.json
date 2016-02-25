@@ -3,10 +3,6 @@
 		"name": "KOTH Controller",
 		"logLevel": 5,
     "botFile": "bots.txt",
-    "game": "",
-		"process": {
-			"encoding": "utf8",
-			"timeout": 5000
-		}
+    "game": ""
 	}
 }

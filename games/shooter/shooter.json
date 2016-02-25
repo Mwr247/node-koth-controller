@@ -1,9 +1,13 @@
 {
 	"name": "Shooter",
 	"process": {
+		"encoding": "utf8",
 		"timeout": 1000
 	},
   "rules": {
-    "rounds": 50
+    "rounds": 50,
+		"bots": {
+			"health": 3
+		}
   }
 }
