@@ -2,7 +2,10 @@ const fs = require('fs');
 
 try {
   global.cfg = JSON.parse(fs.readFileSync('./config.json', 'utf8'));
-  global.util = require('./util.js');
+	global.util = {
+		out: require('./util/out.js'),
+		run: require('./util/run.js')
+	};
 } catch(err) {
 	process.stderr.write(err);
 	process.exit(1);
