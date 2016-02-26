@@ -1,3 +1,8 @@
 Shooter,node Shooter.js
 Blocker,node Blocker.js
 Random,node Random.js
+Random1,node Random.js
+Random2,node Random.js
+Random3,node Random.js
+Random4,node Random.js
+Random5,node Random.js

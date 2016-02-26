@@ -36,7 +36,7 @@ if (cfg.controller.game != null && cfg.controller.game.length) {
 		process.exit(1);
 	}
 
-	if (game.init != null && game.run != null) {
+	if (game.init != null) {
 		util.out.print('"' + cfg.game.name + '" script loaded.', 4);
     var botFile = null;
 		try {

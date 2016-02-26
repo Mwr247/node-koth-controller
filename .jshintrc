@@ -9,5 +9,6 @@
   "undef": true,
   "unused": true,
   "lastsemic": true,
-  "loopfunc": true
+  "loopfunc": true,
+  "curly": true
 }

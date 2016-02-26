@@ -7,7 +7,8 @@
   "rules": {
     "rounds": 50,
 		"bots": {
-			"health": 3
+			"baseHealth": 3,
+			"maxDodges": 5
 		}
   }
 }

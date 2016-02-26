@@ -1,4 +1,4 @@
-/* globals cfg, util, game */
+/* globals cfg, util */
 
 const child = require('child_process');
 
@@ -8,34 +8,34 @@ Public
 const self = {};
 
 // Synchronous bot calls, always processed and handled in order
-self.sync = function(botList, fetchData, callback) {
+self.sync = function(botList, botData, botResponse, gameCallback) {
 	for (var bot in botList) {
-		callback({
+		botResponse({
 			id: botList[bot].id,
-			data: (child.execSync(botList[bot].cmd + ' ' + fetchData(botList[bot].id), cfg.game.process) || '').trim()
+			data: (child.execSync(botList[bot].cmd + ' ' + botData(botList[bot].id), cfg.game.process) || '').trim()
 		});
 	}
-	game.postRun();
+	gameCallback();
 };
 
 // Asynchronous bot calls, run at the same time
-self.async = function(botList, fetchData, callback) {
+self.async = function(botList, botData, botResponse, gameCallback) {
 	var remaining = botList.length;
 	for (var bot in botList) {
-		(function(botList, bot, fetchData, callback) {
-			return child.exec(botList[bot].cmd + ' ' + fetchData(botList[bot].id), cfg.game.process, function(error, stdout) {
-				callback({
+		(function(botList, bot, botData, botResponse) {
+			return child.exec(botList[bot].cmd + ' ' + botData(botList[bot].id), cfg.game.process, function(error, stdout) {
+				botResponse({
 					id: botList[bot].id,
 					data: (stdout || '').trim()
 				});
 				if (--remaining === 0) {
-					game.postRun();
+					gameCallback();
 				}
 				if (error !== null) {
 					util.out.error(error);
 				}
 			});
-		})(botList, bot, fetchData, callback);
+		})(botList, bot, botData, botResponse);
 	}
 };
 
