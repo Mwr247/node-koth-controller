@@ -31,6 +31,16 @@ local.shuffle = function(list) {
   return list;
 };
 
+// Divide a list for tournaments
+local.divide = function(list) {
+  var i = list.length;
+  var groups = [];
+  while (i > 1) {
+    groups.push([list[--i], list[--i]]);
+  }
+  return groups;
+};
+
 // Run a round
 local.run = function() {
     util.run.async(bots, local.botData, local.botResponse, local.postRun);
