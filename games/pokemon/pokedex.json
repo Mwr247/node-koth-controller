@@ -1,0 +1,159 @@
+{
+  "expEquation": "enemyExp * enemyLevel / 7 | 0",
+  "damageEquation": "((2 * level + 10) / 250 * attack / enemyDefence * power + 2) * typeBonus * stab * (Math.random() * 0.15 + 0.85) | 0",
+  "pokemon": {
+    "bulbasaur": {
+      "types": ["grass", "poison"],
+      "exp": 64,
+      "hp": 45,
+      "attack": 49,
+      "defense": 49,
+      "speed": 45,
+      "special": 65,
+      "moves": [
+        "tackle",
+        "growl",
+        "leechSeed",
+        "vineWhip"
+      ]
+    },
+    "charmander": {
+      "types": ["fire"],
+      "exp": 65,
+      "hp": 39,
+      "attack": 52,
+      "defense": 43,
+      "speed": 65,
+      "special": 50,
+      "moves": [
+        "scratch",
+        "growl",
+        "ember",
+        "leer"
+      ]
+    },
+    "squirtle": {
+      "types": ["water"],
+      "exp": 66,
+      "hp": 44,
+      "attack": 48,
+      "defense": 65,
+      "speed": 43,
+      "special": 50,
+      "moves": [
+        "tackle",
+        "tailWhip",
+        "bubble",
+        "waterGun"
+      ]
+    }
+  },
+  "types" :{
+    "grass": {
+      "damage": {
+        "grass": 0.5,
+        "fire": 0.5,
+        "water": 2
+      }
+    },
+    "fire": {
+      "damage": {
+        "grass": 2,
+        "fire": 0.5,
+        "water": 0.5
+      }
+    },
+    "water": {
+      "damage": {
+        "grass": 0.5,
+        "fire": 2,
+        "water": 0.5
+      }
+    }
+  },
+  "moves": {
+    "tackle": {
+      "type": "normal",
+      "power": 35,
+      "accuracy": 0.95,
+      "pp": 35
+    },
+    "growl": {
+      "type": "normal",
+      "power": 0,
+      "accuracy": 1,
+      "pp": 40,
+      "effect": {
+        "attack": [-1, 1]
+      }
+    },
+    "leechSeed": {
+      "type": "grass",
+      "power": 0,
+      "accuracy": 0.9,
+      "pp": 10,
+      "effect": {
+        "status": ["leechSeed", 1]
+      }
+    },
+    "vineWhip": {
+      "type": "grass",
+      "power": 35,
+      "accuracy": 1,
+      "pp": 25
+    },
+    "scratch": {
+      "type": "normal",
+      "power": 40,
+      "accuracy": 1,
+      "pp": 35
+    },
+    "ember": {
+      "type": "fire",
+      "power": 40,
+      "accuracy": 1,
+      "pp": 25,
+      "effect": {
+        "status": ["burn", 0.1]
+      }
+    },
+    "leer": {
+      "type": "normal",
+      "power": 0,
+      "accuracy": 1,
+      "pp": 30,
+      "effect": {
+        "defence": [-1, 1]
+      }
+    },
+    "tailWhip": {
+      "type": "normal",
+      "power": 0,
+      "accuracy": 1,
+      "pp": 30
+    },
+    "bubble": {
+      "type": "water",
+      "power": 20,
+      "accuracy": 1,
+      "pp": 30,
+      "effect": {
+        "speed": [-1, 0.1]
+      }
+    },
+    "waterGun": {
+      "type": "water",
+      "power": 40,
+      "accuracy": 1,
+      "pp": 25
+    }
+  },
+  "status": {
+    "leechSeed": {
+      "type": "grass"
+    },
+    "burn": {
+      "type": "fire"
+    }
+  }
+}
