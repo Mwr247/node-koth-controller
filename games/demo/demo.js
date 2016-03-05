@@ -29,7 +29,7 @@ local.postRun = function() {
 
 // What data to give to each bot
 local.botData = function(id) {
-	return id + ',' + local.rounds + ',' + bots[id].args;
+	return [id, local.rounds, bots[id].args].join();
 };
 
 // Handles bot responses

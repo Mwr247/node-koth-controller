@@ -1,13 +1,13 @@
 /* globals cfg, util, bots */
-const fs = require('fs');
-const pokedex = JSON.parse(fs.readFileSync('./pokedex.json', 'utf8'));
+const pokedex = require('./pokedex.json');
 const local = {};
+const game = {};
 
 // Initial setup
 local.init = function(data) {
   local.rounds = cfg.game.rules.rounds = data[0] || cfg.game.rules.rounds;
 
-  local.pairings = local.shuffle(bots.length);
+  local.pairings = util.list.shuffle(bots);
 
   util.out.log(local.pairings, pokedex.damageEquation);
 
@@ -15,30 +15,6 @@ local.init = function(data) {
 
   local.time = Date.now();
   local.run();
-};
-
-// Shuffle a list, or create a list of shuffled numbers
-local.shuffle = function(list) {
-  if (list.length == null && list >= 0) {
-    list = Array(list).fill(0).map(function(val, i) {
-      return i;
-    });
-  }
-  for (var i = list.length - 1; i > 0; i--) {
-    var j = Math.random() * (i + 1) | 0;
-    [list[i], list[j]] = [list[j], list[i]];
-  }
-  return list;
-};
-
-// Divide a list for tournaments
-local.divide = function(list) {
-  var i = list.length;
-  var groups = [];
-  while (i > 1) {
-    groups.push([list[--i], list[--i]]);
-  }
-  return groups;
 };
 
 // Run a round
@@ -58,12 +34,28 @@ local.postRun = function() {
 
 // What data to give to each bot
 local.botData = function(id) {
-	return id + ',' + local.rounds + ',' + bots[id].args;
+	return [id, local.rounds, bots[id].args].join();
 };
 
 // Handles bot responses
 local.botResponse = function(result) {
 	util.out.print(result.data.trim(), 6);
+};
+
+game.calculateDamage = function(attacker, defender, attackName) {
+  var level = attacker.level;
+  var attack = attacker.attack;
+  var enemyDefense = defender.defense;
+  var power = pokedex.moves[attackName].power;
+  var typeBonus = pokedex.types[pokedex.moves[attackName].type].damage[defender.types[0]];
+  var stab = attacker.type === pokedex.moves[attackName].type ? 1.5 : 1;
+  return ((2 * level + 10) / 250 * attack / enemyDefense * power + 2) * typeBonus * stab * (Math.random() * 0.15 + 0.85) | 0;
+};
+
+game.calculateExp = function(loser) {
+  var exp = pokedex.pokemon[loser.species].exp;
+  var level = loser.level;
+  return exp * level / 7 | 0;
 };
 
 module.exports = {

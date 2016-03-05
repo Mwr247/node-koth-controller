@@ -1,13 +1,10 @@
-/* globals cfg, util, game, bots */
+/* globals cfg, util, gamemode, bots */
 
 const fs = require('fs');
 
 try {
   global.cfg = JSON.parse(fs.readFileSync('./config.json', 'utf8'));
-	global.util = {
-		out: require('./util/out.js'),
-		run: require('./util/run.js')
-	};
+	global.util = require('./util/util.js');
 } catch(err) {
   process.stderr.write(err);
   process.exit(1);
@@ -25,7 +22,7 @@ util.out.print('| Loading controller... ', 4, true);
 if (cfg.controller.game != null && cfg.controller.game.length) {
 	try {
 		cfg.controller.dir = './games/' + cfg.controller.game + '/';
-		global.game = require(cfg.controller.dir + cfg.controller.game + '.js');
+		global.gamemode = require(cfg.controller.dir + cfg.controller.game + '.js');
 		cfg.game = JSON.parse(fs.readFileSync(cfg.controller.dir + cfg.controller.game + '.json', 'utf8'));
     if (typeof cfg.game.process !== 'object') {
 			cfg.game.process = {};
@@ -36,7 +33,7 @@ if (cfg.controller.game != null && cfg.controller.game.length) {
 		process.exit(1);
 	}
 
-	if (game.init != null) {
+	if (gamemode.init != null) {
 		util.out.print('"' + cfg.game.name + '" script loaded.', 4);
     var botFile = null;
 		try {
@@ -64,7 +61,7 @@ if (cfg.controller.game != null && cfg.controller.game.length) {
         util.out.print('| Setup complete. Starting "' + cfg.game.name + '".\n' + tmpDecor, 4);
         util.out.prefix(cfg.game.name);
 
-				game.init(process.argv.slice(process.argv.indexOf('*') + 1 || argPos));
+				gamemode.init(process.argv.slice(process.argv.indexOf('*') + 1 || argPos));
 			} else {
 				util.out.error('Found no entries in the "' + cfg.controller.botFile + '" file.');
 			}

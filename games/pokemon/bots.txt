@@ -1,0 +1,3 @@
+NodeBot,node NodeBot.js
+PythonBot,py PythonBot.py
+RubyBot,ruby RubyBot.rb

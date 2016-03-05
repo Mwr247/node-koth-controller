@@ -1,0 +1,1 @@
+print 'Ruby Success! ' + ARGV[0]

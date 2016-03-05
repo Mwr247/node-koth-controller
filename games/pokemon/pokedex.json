@@ -1,6 +1,4 @@
 {
-  "expEquation": "enemyExp * enemyLevel / 7 | 0",
-  "damageEquation": "((2 * level + 10) / 250 * attack / enemyDefence * power + 2) * typeBonus * stab * (Math.random() * 0.15 + 0.85) | 0",
   "pokemon": {
     "bulbasaur": {
       "types": ["grass", "poison"],
@@ -114,7 +112,7 @@
       "accuracy": 1,
       "pp": 25,
       "effect": {
-        "status": ["burn", 0.1]
+        "status": ["burned", 0.1]
       }
     },
     "leer": {
@@ -152,7 +150,7 @@
     "leechSeed": {
       "type": "grass"
     },
-    "burn": {
+    "burned": {
       "type": "fire"
     }
   }
