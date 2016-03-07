@@ -39,6 +39,34 @@ self.list.divide = function(list, num) {
   return groups;
 };
 
+// Makes deep copies of objects
+self.deepCopy = function(obj) {
+  var newObj, val;
+  if (Array.isArray(obj)) {
+    newObj = [];
+    for (val of obj.keys()) {
+      newObj[val] = self.deepCopy(obj[val]);
+    }
+  } else if (typeof obj === 'object') {
+    newObj = {};
+    for (val of Object.keys(obj)) {
+      newObj[val] = self.deepCopy(obj[val]);
+    }
+  } else {
+    newObj = obj;
+  }
+  return newObj;
+};
+
+// Takes an array of object keys and an object and returns a copy of the object containing only those keys
+self.arrayObjectMap = function(arr, obj) {
+	var newObj = {};
+	arr.forEach(function(val) {
+		newObj[val] = self.deepCopy(obj[val]);
+	});
+	return newObj;
+};
+
 /*****
 Export
 *****/

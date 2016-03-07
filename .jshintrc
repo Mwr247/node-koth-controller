@@ -7,7 +7,7 @@
   "strict": false,
   "newcap": false,
   "undef": true,
-  "unused": true,
+  "unused": false,
   "lastsemic": true,
   "loopfunc": true,
   "curly": true

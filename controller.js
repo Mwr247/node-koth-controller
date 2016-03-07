@@ -52,7 +52,8 @@ if (cfg.controller.game != null && cfg.controller.game.length) {
 					id: id,
 					name: tmp[0],
 					cmd: tmp[1],
-					args: tmp.slice(2)
+					args: tmp.slice(2),
+          data: {}
 				};
 			});
 

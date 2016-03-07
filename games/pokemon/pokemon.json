@@ -1,10 +1,14 @@
 {
-	"name": "Pokemon - Starter",
+	"name": "Pokemon Master - Starter Battle",
 	"process": {
 		"encoding": "utf8",
 		"timeout": 5000
 	},
   "rules": {
-    "rounds": 10
-  }
+		"pokemon": [
+			"bulbasaur",
+			"charmander",
+			"squirtle"
+		]
+	}
 }
